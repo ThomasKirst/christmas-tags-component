@@ -16,41 +16,54 @@ function Tags({ label, tags, onDeleteTag, onUpdateTags }) {
       onUpdateTags(tagInput.toUpperCase());
       setTagInput('');
     }
+
+    if (event.key === 'Backspace' && tagInput === '' && tags.length > 0) {
+      onDeleteTag(tags[tags.length - 1]);
+    }
   };
 
   return (
-    <TagsContainer>
+    <>
       <label htmlFor="tags">{label}</label>
-      <input
-        type="text"
-        id="tags"
-        name="tags"
-        onChange={handleChange}
-        onKeyDown={handleKeyDown}
-        placeholder="Add a tag"
-        value={tagInput}
-      />
-      <TagsWrapper>
-        {tags.map((tag) => (
-          <Tag>
-            {tag} <span onClick={() => onDeleteTag(tag)}>&times;</span>
-          </Tag>
-        ))}
-      </TagsWrapper>
-    </TagsContainer>
+      <TagsContainer>
+        <TagsWrapper>
+          {tags.map((tag) => (
+            <Tag>
+              {tag} <span onClick={() => onDeleteTag(tag)}>&times;</span>
+            </Tag>
+          ))}
+          <input
+            type="text"
+            id="tags"
+            name="tags"
+            onChange={handleChange}
+            onKeyDown={handleKeyDown}
+            placeholder="Add a tag"
+            value={tagInput}
+          />
+        </TagsWrapper>
+      </TagsContainer>
+    </>
   );
 }
 
 export default Tags;
 
 const TagsContainer = styled.section`
+  border: 1px solid #333;
   display: grid;
+  margin: 2rem auto;
+  width: 90%;
+
   label {
     font-weight: bold;
   }
   input {
+    border: none;
+    border-left: 1px solid #999;
+    margin-left: 0.5rem;
+    outline: none;
     padding: 0.5rem 0.2rem;
-    margin-top: 0.5rem;
   }
 `;
 
