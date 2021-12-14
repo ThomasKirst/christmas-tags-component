@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 
-function Tags({ label, tags, onUpdateTags }) {
+function Tags({ label, tags, onDeleteTag, onUpdateTags }) {
   const [tagInput, setTagInput] = useState('');
 
   const handleChange = (event) => {
@@ -32,7 +32,9 @@ function Tags({ label, tags, onUpdateTags }) {
       />
       <TagsWrapper>
         {tags.map((tag) => (
-          <Tag>{tag}</Tag>
+          <Tag>
+            {tag} <span onClick={() => onDeleteTag(tag)}>&times;</span>
+          </Tag>
         ))}
       </TagsWrapper>
     </TagsContainer>
@@ -64,4 +66,16 @@ const Tag = styled.span`
   color: #f8b229;
   margin: 0.2rem;
   padding: 0.2rem 0.4rem 0.3rem;
+
+  span {
+    color: darkred;
+    background: darkgoldenrod;
+    border-radius: 50%;
+    cursor: pointer;
+    display: inline-block;
+    padding: 0 3px;
+    width: 0.7rem;
+    height: 1.2rem;
+    text-align: center;
+  }
 `;

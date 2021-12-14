@@ -12,10 +12,20 @@ function App() {
     setTags([...tags, tag]);
   }
 
+  function deleteTag(clickedTag) {
+    const newTags = tags.filter((everyTag) => everyTag !== clickedTag);
+    setTags(newTags);
+  }
+
   return (
     <div className="App">
       <form>
-        <Tags label="Product Tags" tags={tags} onUpdateTags={updateTags} />
+        <Tags
+          label="Product Tags"
+          tags={tags}
+          onDeleteTag={deleteTag}
+          onUpdateTags={updateTags}
+        />
       </form>
     </div>
   );
